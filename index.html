@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AGD Pymes S.A. — Tu negocio, en el mundo digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050A14;
+    --surface: #0D1B2E;
+    --surface2: #112240;
+    --accent: #00D4FF;
+    --accent2: #7B2FFF;
+    --accent3: #00FF88;
+    --text: #E8F4FF;
+    --muted: #6B8FAA;
+    --border: rgba(0,212,255,0.15);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+    background-size: 200px;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 1.2rem 4rem;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(5,10,20,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.3rem; font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+
+  .logo-icon {
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem; font-weight: 800; color: #fff;
+  }
+
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--muted); text-decoration: none; font-size: 0.9rem;
+    font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff !important;
+    padding: 0.6rem 1.4rem;
+    border-radius: 50px;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    transition: opacity 0.2s, transform 0.2s !important;
+  }
+  .nav-cta:hover { opacity: 0.85; transform: scale(1.04); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 8rem 2rem 6rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 30%, transparent 80%);
+  }
+
+  .hero-glow {
+    position: absolute;
+    width: 800px; height: 800px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(123,47,255,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .hero-glow2 {
+    position: absolute;
+    width: 500px; height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0,212,255,0.1) 0%, transparent 70%);
+    top: 30%; left: 60%; transform: translate(-50%,-50%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(0,212,255,0.08);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 50px;
+    padding: 0.4rem 1.1rem;
+    font-size: 0.78rem; font-weight: 500; color: var(--accent);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.8s ease both;
+  }
+  .badge-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    font-weight: 800;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .h1-line2 {
+    background: linear-gradient(90deg, var(--accent), var(--accent2), var(--accent3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-sub {
+    max-width: 600px; margin: 0 auto 3rem;
+    font-size: 1.15rem; color: var(--muted); line-height: 1.7;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+
+  .hero-btns {
+    display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.5s ease both;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #fff; border: none; padding: 1rem 2.5rem;
+    border-radius: 50px; font-size: 1rem; font-weight: 600;
+    cursor: pointer; font-family: 'DM Sans', sans-serif;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 30px rgba(0,212,255,0.25);
+    text-decoration: none; display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(0,212,255,0.4); }
+
+  .btn-ghost {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+    padding: 1rem 2.5rem; border-radius: 50px;
+    font-size: 1rem; font-weight: 500; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    transition: border-color 0.2s, background 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--accent); background: rgba(0,212,255,0.05); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; justify-content: center; margin-top: 5rem;
+    padding-top: 3rem; border-top: 1px solid var(--border);
+    animation: fadeUp 0.8s 0.7s ease both;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem; font-weight: 800;
+    color: var(--accent); line-height: 1;
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── FLOATING CARDS (hero decoration) ── */
+  .floating-cards {
+    position: absolute;
+    top: 50%; right: 5%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; gap: 1rem;
+    opacity: 0.6;
+    pointer-events: none;
+  }
+  .f-card {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 12px; padding: 0.8rem 1.2rem;
+    font-size: 0.78rem; color: var(--muted);
+    display: flex; align-items: center; gap: 0.6rem;
+    animation: float 4s ease-in-out infinite;
+  }
+  .f-card:nth-child(2) { animation-delay: 1.5s; }
+  .f-card:nth-child(3) { animation-delay: 3s; }
+  .f-icon { font-size: 1.2rem; }
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 4rem; max-width: 1300px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -0.02em; margin-bottom: 1.2rem;
+  }
+
+  .section-sub {
+    font-size: 1.05rem; color: var(--muted); max-width: 550px; line-height: 1.7;
+  }
+
+  /* ── DIVIDER ── */
+  .full-divider {
+    width: 100%; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+  }
+
+  /* ── SERVICES ── */
+  #servicios { background: transparent; }
+
+  .services-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 4rem; flex-wrap: wrap; gap: 2rem;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .service-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2.5rem;
+    transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+    position: relative; overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .service-card:hover {
+    border-color: rgba(0,212,255,0.35);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+  .service-card:hover::before { opacity: 1; }
+
+  .card-icon {
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; margin-bottom: 1.5rem;
+  }
+  .icon-cyan { background: rgba(0,212,255,0.1); }
+  .icon-purple { background: rgba(123,47,255,0.1); }
+  .icon-green { background: rgba(0,255,136,0.1); }
+  .icon-orange { background: rgba(255,140,0,0.1); }
+  .icon-pink { background: rgba(255,64,129,0.1); }
+
+  .card-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem; font-weight: 700; color: var(--muted);
+    letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.5rem;
+  }
+
+  .card-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem; font-weight: 700; margin-bottom: 0.8rem;
+  }
+
+  .card-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.65; }
+
+  .card-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 1.5rem;
+  }
+  .tag {
+    font-size: 0.72rem; font-weight: 500;
+    background: rgba(0,212,255,0.07);
+    border: 1px solid rgba(0,212,255,0.15);
+    color: var(--accent); padding: 0.2rem 0.7rem;
+    border-radius: 50px; letter-spacing: 0.05em;
+  }
+
+  /* ── PROPUESTA DE VALOR ── */
+  #valor {
+    padding: 6rem 4rem;
+  }
+
+  .valor-wrapper {
+    max-width: 1300px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+  }
+
+  .valor-visual {
+    position: relative; height: 480px;
+  }
+
+  .vcard {
+    position: absolute;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    transition: box-shadow 0.3s;
+  }
+  .vcard:hover { box-shadow: 0 10px 40px rgba(0,212,255,0.15); }
+
+  .vc1 { top: 0; left: 0; width: 280px; }
+  .vc2 { top: 40%; left: 30%; width: 260px; animation: float 5s 1s ease-in-out infinite; }
+  .vc3 { bottom: 0; left: 10%; width: 270px; animation: float 4s 2s ease-in-out infinite; }
+
+  .vcard-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+  .vcard-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+  .vcard-text { font-size: 0.85rem; color: var(--muted); }
+
+  .pilares { display: flex; flex-direction: column; gap: 2rem; }
+
+  .pilar {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+  }
+  .pilar-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem; font-weight: 800;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--accent);
+    opacity: 0.5; flex-shrink: 0; line-height: 1;
+    padding-top: 0.2rem;
+  }
+  .pilar-title { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; }
+  .pilar-text { font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── FODA ── */
+  #foda {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 6rem 4rem;
+  }
+  .foda-inner { max-width: 1300px; margin: 0 auto; }
+
+  .foda-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem;
+  }
+
+  .foda-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem;
+  }
+
+  .foda-header {
+    display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.2rem;
+  }
+  .foda-letter {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.5rem; font-weight: 800; line-height: 1;
+  }
+  .foda-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; }
+
+  .foda-f .foda-letter { color: var(--accent3); }
+  .foda-o .foda-letter { color: var(--accent); }
+  .foda-d .foda-letter { color: #FF6B6B; }
+  .foda-a .foda-letter { color: #FFB347; }
+
+  .foda-list { list-style: none; }
+  .foda-list li {
+    font-size: 0.88rem; color: var(--muted); padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex; align-items: flex-start; gap: 0.6rem; line-height: 1.5;
+  }
+  .foda-list li::before { content: '→'; color: var(--muted); flex-shrink: 0; }
+  .foda-list li:last-child { border-bottom: none; }
+
+  /* ── ORGANIGRAMA ── */
+  #equipo { padding: 6rem 4rem; max-width: 1300px; margin: 0 auto; }
+
+  .org-chart {
+    margin-top: 3.5rem;
+    display: flex; flex-direction: column; align-items: center; gap: 0;
+  }
+
+  .org-row {
+    display: flex; gap: 2rem; justify-content: center; position: relative;
+  }
+
+  .org-connector {
+    width: 2px; height: 40px;
+    background: linear-gradient(180deg, var(--accent), var(--accent2));
+    margin: 0 auto;
+    opacity: 0.4;
+  }
+
+  .org-hline {
+    height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2));
+    opacity: 0.2; margin: 0 2rem;
+  }
+
+  .org-node {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.2rem 1.8rem;
+    text-align: center; min-width: 160px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .org-node:hover { border-color: var(--accent); box-shadow: 0 0 20px rgba(0,212,255,0.1); }
+  .org-node.ceo {
+    background: linear-gradient(135deg, rgba(0,212,255,0.08), rgba(123,47,255,0.08));
+    border-color: rgba(0,212,255,0.3);
+    min-width: 200px;
+  }
+  .org-node-title { font-family: 'Syne', sans-serif; font-size: 0.9rem; font-weight: 700; }
+  .org-node-sub { font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+
+  /* ── KPIs ── */
+  #kpis {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 6rem 4rem;
+  }
+  .kpis-inner { max-width: 1300px; margin: 0 auto; }
+
+  .kpis-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem; margin-top: 3rem;
+  }
+
+  .kpi-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem;
+    text-align: center;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .kpi-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+
+  .kpi-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.8rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; line-height: 1;
+  }
+  .kpi-unit { font-size: 0.8rem; color: var(--muted); margin-top: 0.3rem; }
+  .kpi-label { font-size: 0.85rem; color: var(--text); margin-top: 0.6rem; font-weight: 500; }
+
+  /* ── CONTACTO / CTA ── */
+  #contacto {
+    padding: 6rem 4rem; max-width: 1300px; margin: 0 auto; text-align: center;
+  }
+
+  .cta-box {
+    background: linear-gradient(135deg, var(--surface2) 0%, var(--surface) 100%);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 5rem 3rem;
+    position: relative; overflow: hidden;
+  }
+  .cta-box::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,212,255,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .cta-box .section-title { font-size: clamp(2rem, 4vw, 3rem); }
+
+  .contact-grid {
+    display: flex; gap: 2rem; justify-content: center; margin-top: 3rem; flex-wrap: wrap;
+  }
+
+  .contact-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 50px; padding: 0.8rem 1.5rem;
+    font-size: 0.9rem; color: var(--muted);
+  }
+  .contact-item span:first-child { font-size: 1.1rem; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 3rem 4rem;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+
+  .footer-brand {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+  }
+  .footer-tagline { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+  .footer-right { font-size: 0.8rem; color: var(--muted); text-align: right; }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section, #valor, #foda, #kpis, #contacto, #equipo { padding: 4rem 1.5rem; }
+    .valor-wrapper { grid-template-columns: 1fr; gap: 3rem; }
+    .valor-visual { height: 300px; }
+    .foda-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+    .floating-cards { display: none; }
+    footer { flex-direction: column; text-align: center; }
+    .footer-right { text-align: center; }
+  }
+
+  /* ── INTERACTIVE DEMO ── */
+  .demo-container {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px; padding: 2.5rem;
+    margin-top: 4rem;
+  }
+
+  .demo-tabs {
+    display: flex; gap: 0.5rem; margin-bottom: 2rem; flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--muted); padding: 0.6rem 1.3rem;
+    border-radius: 50px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+    transition: all 0.2s;
+  }
+  .tab-btn.active, .tab-btn:hover {
+    background: rgba(0,212,255,0.1);
+    border-color: var(--accent); color: var(--accent);
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap; }
+
+  .tab-info { flex: 1; min-width: 220px; }
+  .tab-info h3 { font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 700; margin-bottom: 0.8rem; }
+  .tab-info p { color: var(--muted); font-size: 0.92rem; line-height: 1.65; }
+
+  .tab-features { flex: 1; min-width: 220px; }
+  .feature-item {
+    display: flex; align-items: center; gap: 0.8rem;
+    padding: 0.7rem 0; border-bottom: 1px solid var(--border);
+    font-size: 0.88rem;
+  }
+  .feature-item:last-child { border-bottom: none; }
+  .feature-check { color: var(--accent3); font-weight: 700; }
+
+  /* ── PROCESS STEPS ── */
+  .steps-container { max-width: 1300px; margin: 0 auto; padding: 6rem 4rem; }
+
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem; margin-top: 3.5rem; position: relative;
+  }
+
+  .step-card {
+    text-align: center; padding: 2rem 1rem; position: relative;
+  }
+
+  .step-number {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: linear-gradient(135deg, rgba(0,212,255,0.15), rgba(123,47,255,0.15));
+    border: 1px solid rgba(0,212,255,0.25);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-size: 1.3rem; font-weight: 800;
+    color: var(--accent); margin: 0 auto 1.2rem;
+  }
+
+  .step-title { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .step-text { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#hero" class="logo">
+    <div class="logo-icon">GD</div>
+    AGD Pymes S.A.
+  </a>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#valor">Propuesta</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#foda">Análisis</a></li>
+    <li><a href="#equipo">Equipo</a></li>
+    <li><a href="#contacto" class="nav-cta">Iniciar Proyecto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+
+  <div class="floating-cards">
+    <div class="f-card"><span class="f-icon">🥽</span> VR/AR Inmersivo</div>
+    <div class="f-card"><span class="f-icon">📦</span> Gemelo Digital 3D</div>
+    <div class="f-card"><span class="f-icon">🚀</span> Expansión sin fronteras</div>
+  </div>
+
+  <div style="position:relative;z-index:2;">
+    <div class="hero-badge">
+      <span class="badge-dot"></span>
+      Innovación Inmersiva para Guatemala
+    </div>
+    <h1>
+      Tu negocio,<br>
+      <span class="h1-line2">en el mundo digital</span>
+    </h1>
+    <p class="hero-sub">
+      Transformamos pequeñas y medianas empresas de Guatemala en experiencias digitales interactivas con tecnología VR/AR y Gemelos Digitales. Sin necesitar conocimientos técnicos.
+    </p>
+    <div class="hero-btns">
+      <a href="#servicios" class="btn-primary">Explorar servicios</a>
+      <a href="#valor" class="btn-ghost">Conocer más →</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">20%</div>
+        <div class="stat-label">Aumento en ventas</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">85%</div>
+        <div class="stat-label">Satisfacción del cliente</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Pymes por año</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Soluciones digitales</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="services-header">
+    <div>
+      <div class="section-label">Nuestros Servicios</div>
+      <h2 class="section-title">Soluciones inmersivas<br>para cada Pyme</h2>
+    </div>
+    <p class="section-sub">Cinco productos diseñados para llevar tu negocio al siguiente nivel, sin necesitar conocimientos tecnológicos previos.</p>
+  </div>
+
+  <div class="services-grid">
+    <!-- Servicio 1 -->
+    <div class="service-card reveal">
+      <div class="card-num">01</div>
+      <div class="card-icon icon-cyan">🏪</div>
+      <div class="card-title">Tienda Virtual 3D</div>
+      <div class="card-desc">Recreación digital completa de tu tienda física. Tus clientes pueden recorrerla virtualmente desde cualquier lugar del país o el mundo, con productos reales y precios actualizados en tiempo real.</div>
+      <div class="card-tags">
+        <span class="tag">Recorrido 3D</span>
+        <span class="tag">Móvil & PC</span>
+        <span class="tag">Productos en vivo</span>
+      </div>
+    </div>
+
+    <!-- Servicio 2 -->
+    <div class="service-card reveal">
+      <div class="card-num">02</div>
+      <div class="card-icon icon-purple">📦</div>
+      <div class="card-title">Gemelo Digital de Productos</div>
+      <div class="card-desc">Modelos 3D detallados de tus productos con visualización en Realidad Aumentada. El cliente puede ver tu producto en tamaño real dentro de su propio hogar antes de comprarlo.</div>
+      <div class="card-tags">
+        <span class="tag">AR en tiempo real</span>
+        <span class="tag">Colores & tamaños</span>
+        <span class="tag">Reduce devoluciones</span>
+      </div>
+    </div>
+
+    <!-- Servicio 3 -->
+    <div class="service-card reveal">
+      <div class="card-num">03</div>
+      <div class="card-icon icon-green">🛒</div>
+      <div class="card-title">Plataforma de Compra Interactiva</div>
+      <div class="card-desc">Integración con comercio electrónico: carrito de compras dentro del entorno inmersivo, análisis del comportamiento del usuario y métricas para tomar mejores decisiones de negocio.</div>
+      <div class="card-tags">
+        <span class="tag">E-commerce</span>
+        <span class="tag">Analytics</span>
+        <span class="tag">UX inmersivo</span>
+      </div>
+    </div>
+
+    <!-- Servicio 4 -->
+    <div class="service-card reveal">
+      <div class="card-num">04</div>
+      <div class="card-icon icon-orange">📊</div>
+      <div class="card-title">Simulador de Negocio</div>
+      <div class="card-desc">Gemelo digital operativo que simula ventas, inventarios y demanda. Panel de control con métricas en tiempo real para planificar el crecimiento y reducir riesgos financieros.</div>
+      <div class="card-tags">
+        <span class="tag">Dashboard en vivo</span>
+        <span class="tag">Predicción IA</span>
+        <span class="tag">Gestión inventario</span>
+      </div>
+    </div>
+
+    <!-- Servicio 5 -->
+    <div class="service-card reveal">
+      <div class="card-num">05</div>
+      <div class="card-icon icon-pink">🛠️</div>
+      <div class="card-title">Implementación y Soporte</div>
+      <div class="card-desc">Asesoría personalizada desde el diagnóstico digital hasta la puesta en marcha. Capacitación, mantenimiento constante y soporte técnico continuo para que nunca estés solo.</div>
+      <div class="card-tags">
+        <span class="tag">Llave en mano</span>
+        <span class="tag">Capacitación</span>
+        <span class="tag">Soporte 24/7</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Demo Tabs -->
+  <div class="demo-container reveal">
+    <div class="section-label" style="margin-bottom:1rem;">Demo Interactivo</div>
+    <div class="demo-tabs">
+      <button class="tab-btn active" onclick="showTab('tienda')">Tienda Virtual</button>
+      <button class="tab-btn" onclick="showTab('producto')">Producto 3D</button>
+      <button class="tab-btn" onclick="showTab('simulador')">Simulador</button>
+      <button class="tab-btn" onclick="showTab('soporte')">Soporte</button>
+    </div>
+
+    <div id="tab-tienda" class="tab-content active">
+      <div class="tab-info">
+        <h3>🏪 Tienda Virtual 3D</h3>
+        <p>Imagina que tu tienda en Quetzaltenango puede ser visitada por un cliente en la capital sin que ninguno se mueva. Con nuestra Tienda Virtual 3D, recreamos tu espacio físico con precisión milimétrica, integrando catálogo de productos, precios y un sistema de pedidos directo.</p>
+      </div>
+      <div class="tab-features">
+        <div class="feature-item"><span class="feature-check">✓</span> Compatible con celulares Android e iOS</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Actualización de precios en tiempo real</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Navegación intuitiva sin app adicional</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Integración con WhatsApp y redes sociales</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Sin conocimientos técnicos requeridos</div>
+      </div>
+    </div>
+
+    <div id="tab-producto" class="tab-content">
+      <div class="tab-info">
+        <h3>📦 Producto en Realidad Aumentada</h3>
+        <p>Tu cliente escanea un código QR en el empaque o en redes sociales y en segundos puede ver tu producto en su sala, su oficina o donde quiera. Ideal para muebles, ropa, calzado y tecnología. Reduce devoluciones y aumenta la satisfacción del comprador.</p>
+      </div>
+      <div class="tab-features">
+        <div class="feature-item"><span class="feature-check">✓</span> Modelos 3D de alta fidelidad</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Personalización de colores y tamaños</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Acceso por código QR impreso</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Sin descargar ninguna aplicación</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Reduce hasta 30% de devoluciones</div>
+      </div>
+    </div>
+
+    <div id="tab-simulador" class="tab-content">
+      <div class="tab-info">
+        <h3>📊 Simulador de Negocio</h3>
+        <p>Un panel de control que refleja en tiempo real el comportamiento de tu negocio digital: cuántos clientes visitaron, qué productos exploraron, cuántos compraron y qué tendencias se detectan. Toma decisiones con datos, no con suposiciones.</p>
+      </div>
+      <div class="tab-features">
+        <div class="feature-item"><span class="feature-check">✓</span> Dashboard con métricas en vivo</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Predicción de demanda con IA</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Alertas de inventario bajo</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Reporte mensual automatizado</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Integración con datos reales del negocio</div>
+      </div>
+    </div>
+
+    <div id="tab-soporte" class="tab-content">
+      <div class="tab-info">
+        <h3>🛠️ Soporte y Mantenimiento</h3>
+        <p>No te dejamos solo después de la implementación. Nuestro equipo acompaña cada Pyme con capacitaciones, actualizaciones de contenido, corrección de errores y soporte técnico continuo. Tu gemelo digital siempre estará al 100%.</p>
+      </div>
+      <div class="tab-features">
+        <div class="feature-item"><span class="feature-check">✓</span> Capacitación inicial incluida</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Actualizaciones mensuales de contenido</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Soporte vía WhatsApp y correo</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Revisión trimestral de resultados</div>
+        <div class="feature-item"><span class="feature-check">✓</span> Escalado del servicio según crecimiento</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- PROPUESTA DE VALOR -->
+<div id="valor">
+  <div class="valor-wrapper">
+    <div class="reveal">
+      <div class="section-label">Propuesta de Valor</div>
+      <h2 class="section-title">¿Por qué elegirnos?</h2>
+      <p class="section-sub" style="margin-bottom:3rem;">Tres pilares que nos diferencian de cualquier agencia de marketing tradicional en Guatemala.</p>
+      <div class="pilares">
+        <div class="pilar">
+          <div class="pilar-num">01</div>
+          <div>
+            <div class="pilar-title">Accesibilidad Tecnológica</div>
+            <div class="pilar-text">Llevamos la tecnología VR/AR a negocios que normalmente no podrían costearla. Planes escalables y precios adaptados al mercado guatemalteco.</div>
+          </div>
+        </div>
+        <div class="pilar">
+          <div class="pilar-num">02</div>
+          <div>
+            <div class="pilar-title">Confianza del Consumidor</div>
+            <div class="pilar-text">El cliente puede ver, explorar y casi "tocar" el producto antes de comprarlo, reduciendo la incertidumbre y aumentando la conversión de ventas.</div>
+          </div>
+        </div>
+        <div class="pilar">
+          <div class="pilar-num">03</div>
+          <div>
+            <div class="pilar-title">Expansión sin Fronteras</div>
+            <div class="pilar-text">Una Pyme en Chiquimula puede vender a un cliente en Ciudad de Guatemala o en el extranjero gracias a su gemelo digital.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="valor-visual reveal">
+      <div class="vcard vc1">
+        <div class="vcard-icon">🥽</div>
+        <div class="vcard-title">Experiencia Inmersiva</div>
+        <div class="vcard-text">Recorridos virtuales en 3D que transportan al cliente directo a tu tienda</div>
+      </div>
+      <div class="vcard vc2">
+        <div class="vcard-icon">📍</div>
+        <div class="vcard-title">Cobertura Nacional</div>
+        <div class="vcard-text">Capital → Departamentos → Centroamérica</div>
+      </div>
+      <div class="vcard vc3">
+        <div class="vcard-icon">💡</div>
+        <div class="vcard-title">Llave en Mano</div>
+        <div class="vcard-text">Nosotros hacemos todo el trabajo técnico. Tú solo apruebas el resultado.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- PROCESO -->
+<div class="steps-container" id="proceso">
+  <div style="text-align:center; margin-bottom:0.5rem;">
+    <div class="section-label" style="display:inline-block;">Cómo funciona</div>
+  </div>
+  <h2 class="section-title reveal" style="text-align:center;">De tu tienda física<br>a tu gemelo digital</h2>
+  <p class="section-sub reveal" style="text-align:center; margin: 0 auto 0;">Un proceso guiado, sin tecnicismos, adaptado a tu negocio.</p>
+
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-number">1</div>
+      <div class="step-title">Diagnóstico Digital</div>
+      <div class="step-text">Analizamos tu negocio, productos y necesidades para diseñar el plan ideal.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-number">2</div>
+      <div class="step-title">Diseño 3D/VR</div>
+      <div class="step-text">Nuestro equipo crea los modelos y recorridos virtuales de tu tienda y productos.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-number">3</div>
+      <div class="step-title">Integración</div>
+      <div class="step-text">Conectamos tu gemelo digital con e-commerce, pagos y sistemas de pedidos.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-number">4</div>
+      <div class="step-title">Capacitación</div>
+      <div class="step-text">Te enseñamos a actualizar tu gemelo y aprovechar todos sus beneficios.</div>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-number">5</div>
+      <div class="step-title">Lanzamiento</div>
+      <div class="step-text">Publicamos tu experiencia digital y comenzamos a medir resultados reales.</div>
+    </div>
+  </div>
+</div>
+
+<div class="full-divider"></div>
+
+<!-- FODA -->
+<div id="foda">
+  <div class="foda-inner">
+    <div class="section-label">Análisis Estratégico</div>
+    <h2 class="section-title reveal">Análisis FODA</h2>
+    <p class="section-sub reveal">Conocemos nuestras fortalezas, reconocemos nuestros desafíos y aprovechamos las oportunidades del mercado guatemalteco.</p>
+
+    <div class="foda-grid">
+      <div class="foda-card reveal">
+        <div class="foda-header foda-f">
+          <div class="foda-letter">F</div>
+          <div class="foda-name">Fortalezas</div>
+        </div>
+        <ul class="foda-list">
+          <li>Tecnología VR/AR innovadora y diferenciada en el mercado guatemalteco</li>
+          <li>Servicio llave en mano sin requerir conocimientos técnicos del cliente</li>
+          <li>Costos operativos bajos gracias al modelo de trabajo híbrido</li>
+          <li>Equipo especializado en VR/AR y diseño 3D</li>
+          <li>Alta escalabilidad: el servicio crece junto al cliente</li>
+        </ul>
+      </div>
+
+      <div class="foda-card reveal">
+        <div class="foda-header foda-o">
+          <div class="foda-letter">O</div>
+          <div class="foda-name">Oportunidades</div>
+        </div>
+        <ul class="foda-list">
+          <li>Crecimiento del comercio electrónico post-pandemia en Guatemala</li>
+          <li>Miles de Pymes sin presencia digital formal</li>
+          <li>Apoyo gubernamental y de ONG a la digitalización</li>
+          <li>Expansión del acceso a internet en áreas urbanas y semiurbanas</li>
+          <li>Tendencia global hacia el metaverso y el comercio inmersivo</li>
+        </ul>
+      </div>
+
+      <div class="foda-card reveal">
+        <div class="foda-header foda-d">
+          <div class="foda-letter">D</div>
+          <div class="foda-name">Debilidades</div>
+        </div>
+        <ul class="foda-list">
+          <li>Empresa nueva sin historial ni reputación establecida</li>
+          <li>Inversión inicial elevada en equipos de diseño 3D</li>
+          <li>Dependencia de internet de calidad para demos en VR</li>
+          <li>Mercado poco familiarizado con tecnología VR</li>
+          <li>Capacidad limitada de atención simultánea al inicio</li>
+        </ul>
+      </div>
+
+      <div class="foda-card reveal">
+        <div class="foda-header foda-a">
+          <div class="foda-letter">A</div>
+          <div class="foda-name">Amenazas</div>
+        </div>
+        <ul class="foda-list">
+          <li>Competencia de agencias de marketing digital tradicionales</li>
+          <li>Empresas internacionales con mayor presupuesto</li>
+          <li>Resistencia cultural al cambio tecnológico</li>
+          <li>Inestabilidad económica que limita la inversión de Pymes</li>
+          <li>Rápida obsolescencia tecnológica</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EQUIPO / ORGANIGRAMA -->
+<section id="equipo">
+  <div class="section-label">Nuestro Equipo</div>
+  <h2 class="section-title reveal">Estructura organizacional</h2>
+  <p class="section-sub reveal">Un equipo pequeño y altamente especializado, diseñado para ejecutar con agilidad y crecer con cada cliente.</p>
+
+  <div class="org-chart">
+    <div class="org-row">
+      <div class="org-node ceo reveal">
+        <div class="org-node-title">Director General</div>
+        <div class="org-node-sub">CEO · Estrategia y operaciones</div>
+      </div>
+    </div>
+    <div class="org-connector"></div>
+    <div class="org-row" style="gap:4rem;">
+      <div class="org-node reveal">
+        <div class="org-node-title">Diseñador 3D / VR</div>
+        <div class="org-node-sub">Desarrollo de Gemelos Digitales</div>
+      </div>
+      <div class="org-node reveal">
+        <div class="org-node-title">Ejecutivo de Ventas</div>
+        <div class="org-node-sub">Gestión de Proyectos y Clientes</div>
+      </div>
+    </div>
+    <div class="org-connector"></div>
+    <div class="org-row" style="gap:2rem;">
+      <div class="org-node reveal">
+        <div class="org-node-title">Marketing Digital</div>
+        <div class="org-node-sub">Campañas & Branding</div>
+      </div>
+      <div class="org-node reveal">
+        <div class="org-node-title">Soporte Técnico</div>
+        <div class="org-node-sub">Implementación & Soporte</div>
+      </div>
+      <div class="org-node reveal">
+        <div class="org-node-title">Administración</div>
+        <div class="org-node-sub">Contabilidad & Operaciones</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="full-divider"></div>
+
+<!-- KPIs -->
+<div id="kpis">
+  <div class="kpis-inner">
+    <div class="section-label">Indicadores Clave</div>
+    <h2 class="section-title reveal">Nuestras metas y KPIs</h2>
+    <p class="section-sub reveal">Medimos el éxito con indicadores concretos, porque lo que no se mide no se puede mejorar.</p>
+
+    <div class="kpis-grid">
+      <div class="kpi-card reveal">
+        <div class="kpi-num">15</div>
+        <div class="kpi-unit">Pymes por año</div>
+        <div class="kpi-label">Meta de incorporación de nuevos clientes</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="kpi-num">20%</div>
+        <div class="kpi-unit">Incremento de ventas</div>
+        <div class="kpi-label">Aumento promedio en ventas online del cliente</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="kpi-num">30%</div>
+        <div class="kpi-unit">Menos devoluciones</div>
+        <div class="kpi-label">Reducción de devoluciones por mejor visualización</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="kpi-num">85%</div>
+        <div class="kpi-unit">Satisfacción</div>
+        <div class="kpi-label">Índice de satisfacción mínimo por proyecto</div>
+      </div>
+      <div class="kpi-card reveal">
+        <div class="kpi-num">5</div>
+        <div class="kpi-unit">Alianzas estratégicas</div>
+        <div class="kpi-label">Convenios con cámaras y universidades en 3 años</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACTO / CTA -->
+<section id="contacto">
+  <div class="cta-box reveal">
+    <div class="section-label">Iniciemos</div>
+    <h2 class="section-title">¿Listo para digitalizar<br>tu negocio?</h2>
+    <p class="section-sub" style="margin: 1rem auto 0; text-align:center;">No necesitas saber de tecnología. Nosotros hacemos todo el trabajo. Solo cuéntanos de tu Pyme y empezamos juntos.</p>
+
+    <div class="contact-grid">
+      <div class="contact-item">
+        <span>📧</span>
+        <span>contacto@agdpymes.gt</span>
+      </div>
+      <div class="contact-item">
+        <span>📱</span>
+        <span>+502 · WhatsApp disponible</span>
+      </div>
+      <div class="contact-item">
+        <span>📍</span>
+        <span>Zona 10, Ciudad de Guatemala</span>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem; display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a href="#servicios" class="btn-primary">Ver todos los servicios</a>
+      <a href="#foda" class="btn-ghost">Conocer más del proyecto</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">AGD Pymes S.A.</div>
+    <div class="footer-tagline">Agencia de Gemelos Digitales Pymes S.A. · "Tu negocio, en el mundo digital"</div>
+  </div>
+  <div class="footer-right">
+    <div>Zona 10, Ciudad de Guatemala</div>
+    <div style="margin-top:0.3rem;">© 2025 AGD Pymes S.A. · Todos los derechos reservados</div>
+  </div>
+</footer>
+
+<script>
+  // Tab switching
+  function showTab(id) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.target.classList.add('active');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Animated counter for hero stats
+  function animateCounter(el, target, suffix = '') {
+    let start = 0;
+    const duration = 2000;
+    const step = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= target) {
+        el.textContent = target + suffix;
+        clearInterval(timer);
+      } else {
+        el.textContent = Math.floor(start) + suffix;
+      }
+    }, 16);
+  }
+
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const nums = entry.target.querySelectorAll('.stat-num');
+        nums.forEach(n => {
+          const text = n.textContent;
+          const match = text.match(/(\d+)(\+|%)?/);
+          if (match) {
+            const num = parseInt(match[1]);
+            const suf = match[2] || '';
+            animateCounter(n, num, suf);
+          }
+        });
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const heroStats = document.querySelector('.hero-stats');
+  if (heroStats) statsObserver.observe(heroStats);
+</script>
+</body>
+</html>
